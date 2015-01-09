@@ -4,16 +4,17 @@ require 'aws-sdk'
 require 'json'
 
 def config
-{
-  :tasseo => '/path/to/tasseo',
-  :dashboard => '/path/to/tasseo/dashboards/',
-  :aws_key => '',
-  :aws_secret_key => '',
-  :endpoint => 'ec2.ap-northeast-1.amazonaws.com',
-}
+  {
+    :tasseo => '/path/to/tasseo',
+    :dashboard => '/path/to/tasseo/dashboards/',
+    :aws_key => '',
+    :aws_secret_key => '',
+    :endpoint => 'ec2.ap-northeast-1.amazonaws.com',
+  }
 end
 
-def generate_js(instance)
+def generate_js(instance, namespace, dimention)
+
   metrics_names = {
     'CPUUtilization' => '%',
     'DiskReadOps' => 'Num',
@@ -22,6 +23,9 @@ def generate_js(instance)
     'DiskWriteBytes' => 'Byte',
     'NetworkIn' => 'Byte',
     'NetworkOut' => 'Byte',
+    'SwapUsage' => ['Byte', 'elc']
+    'Evictions' => ['Count', 'elc']
+    'CurrConnections' => ['Count', 'elc']
   }
 
   v = []
